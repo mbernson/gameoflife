@@ -15,7 +15,7 @@ public class Board {
     public Board(int[][] pattern) {
         board = pattern;
         height = board.length;
-        width = board[0].length;
+        width = board[0].length; // Assume every row has the same width
     }
 
     public void tick() {
@@ -27,7 +27,6 @@ public class Board {
             for(int col = 0; col < getWidth(); col++) {
                 // Check if the cell should live or die in the next generation
                 int newState = checkCell(col, row);
-//                System.out.printf("New state: %d\n", newState);
                 futureBoard[row][col] = newState;
             }
         }
@@ -38,14 +37,12 @@ public class Board {
     private int checkCell(int x, int y) {
         final int cell = getCell(x, y);
         final int[] neighbors = getNeighbors(x, y);
-//        System.out.printf("Examining cell x:%d, y:%d with state %d\n", x, y, cell);
 
         int aliveNeighbors = 0, deadNeighbors = 0;
         for(int n : neighbors) {
             if(n == 0) deadNeighbors++;
             else if(n == 1) aliveNeighbors++;
         }
-//        System.out.printf("Cell has %d neighbors, of which %d dead and %d alive\n", aliveNeighbors + deadNeighbors, deadNeighbors, aliveNeighbors);
 
         // Any live cell with fewer than two live neighbours dies, as if caused by under-population.
         if(cell == 1 && aliveNeighbors < 2) return 0;
@@ -84,6 +81,7 @@ public class Board {
         System.out.printf("Generation: %d", generation);
     }
 
+    public int getGeneration() { return generation; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
     public int[][] getBoard() { return board; }
@@ -104,5 +102,13 @@ public class Board {
             return -1;
 
         return board[y][x];
+    }
+
+    public boolean setCell(int x, int y, int state) {
+        if(getCell(x, y) == -1)
+            return false;
+
+        board[y][x] = state;
+        return true;
     }
 }
