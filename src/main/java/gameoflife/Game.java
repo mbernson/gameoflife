@@ -20,8 +20,8 @@ public class Game extends JFrame {
     private Board board;
 
     public void start() {
-        board = new Board(App.glider);
         setSize(800, 600);
+        board = new Board(Patterns.glider);
 
         setLayout(new GridLayout(1, 2));
         setLocationRelativeTo(null);
