@@ -111,4 +111,21 @@ public class Board {
         board[y][x] = state;
         return true;
     }
+
+    public boolean toggleCell(int x, int y) {
+        int cell = getCell(x, y);
+        if(cell == -1)
+            return false;
+        int newState = cell == 1 ? 0 : 1;
+        return setCell(x, y, newState);
+    }
+
+    public void clear() {
+        for(int row = 0; row < height; row++) {
+            for(int col = 0; col < width; col++) {
+                board[row][col] = 0;
+            }
+        }
+        generation = 0;
+    }
 }
