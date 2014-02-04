@@ -3,6 +3,8 @@ package gameoflife;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 public class Game extends JFrame implements ActionListener {
@@ -54,8 +56,18 @@ public class Game extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) { tick(); }
         });
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.clear();
+                grid.repaint();
+                updateGenerationsLabel();
+            }
+        });
         controls.add(startStopButton);
         controls.add(tickButton);
+        controls.add(clearButton);
         controls.add(generationsLabel);
 
         add(controls);
@@ -69,20 +81,48 @@ public class Game extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        System.out.println("actionPerformed");
         tick();
     }
 
     private void tick() {
         if(grid != null) {
             board.tick();
-            generationsLabel.setText("Generation: " + board.getGeneration());
+            updateGenerationsLabel();
             repaint();
             grid.repaint();
         }
     }
 
+    private void updateGenerationsLabel() {
+        generationsLabel.setText("Generation: " + board.getGeneration());
+    }
+
     class Grid extends JPanel {
+        public Grid() {
+            super();
+            addMouseListener(new MouseListener() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    int x = e.getX() / CELL_WIDTH,
+                        y = e.getY() / CELL_HEIGHT;
+                    board.toggleCell(x - 1, y - 1);
+                    repaint();
+                }
+
+                @Override
+                public void mousePressed(MouseEvent e) {}
+
+                @Override
+                public void mouseReleased(MouseEvent e) {}
+
+                @Override
+                public void mouseEntered(MouseEvent e) {}
+
+                @Override
+                public void mouseExited(MouseEvent e) {}
+            });
+        }
+
         @Override
         public Dimension getPreferredSize() {
             Dimension d = new Dimension();
