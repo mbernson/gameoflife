@@ -19,22 +19,22 @@ public class BoardTest {
     @Test
     public void testGetNeighbors() {
         Board b = new Board(blinker);
-        assertArrayEquals(b.getNeighbors(0, 0), new int[]{
+        assertArrayEquals(b.getNeighbours(0, 0), new int[]{
                 -1, -1, 0, 0, 0, -1, -1, -1
         });
-        assertArrayEquals(b.getNeighbors(2, 2), new int[]{
+        assertArrayEquals(b.getNeighbours(2, 2), new int[]{
                 1, 0, 0, 0, 1, 0, 0, 0
         });
-        assertArrayEquals(b.getNeighbors(2, 1), new int[]{
+        assertArrayEquals(b.getNeighbours(2, 1), new int[]{
                 0, 0, 0, 0, 1, 0, 0, 0
         });
-        assertArrayEquals(b.getNeighbors(4, 5), new int[]{
+        assertArrayEquals(b.getNeighbours(4, 5), new int[]{
                 0, -1, -1, -1, -1, -1, 0, 0
         });
-        assertArrayEquals(b.getNeighbors(-1, -1), new int[]{
+        assertArrayEquals(b.getNeighbours(-1, -1), new int[]{
                 -1, -1, -1, 0, -1, -1, -1, -1
         });
-        assertArrayEquals(b.getNeighbors(2, 5), new int[]{
+        assertArrayEquals(b.getNeighbours(2, 5), new int[]{
                 0, 0, 0, -1, -1, -1, 0, 0
         });
     }

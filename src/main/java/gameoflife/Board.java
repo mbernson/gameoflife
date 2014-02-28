@@ -36,7 +36,7 @@ public class Board {
 
     private int checkCell(int x, int y) {
         final int cell = getCell(x, y);
-        final int[] neighbors = getNeighbors(x, y);
+        final int[] neighbors = getNeighbours(x, y);
 
         int aliveNeighbors = 0, deadNeighbors = 0;
         for(int n : neighbors) {
@@ -56,7 +56,7 @@ public class Board {
         else return 0;
     }
 
-    public int[] getNeighbors(int x, int y) {
+    public int[] getNeighbours(int x, int y) {
         // The cell's neighbors are sorted clockwise around the cell,
         // starting at the top
         return new int[] {
