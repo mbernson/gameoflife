@@ -4,9 +4,6 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 public class BoardTest {
 
@@ -23,29 +20,24 @@ public class BoardTest {
     public void testGetNeighbors() {
         Board b = new Board(blinker);
         assertArrayEquals(b.getNeighbors(0, 0), new int[]{
-                -1, 0, 0, -1
+                -1, -1, 0, 0, 0, -1, -1, -1
         });
         assertArrayEquals(b.getNeighbors(2, 2), new int[]{
-                1, 0, 1, 0
+                1, 0, 0, 0, 1, 0, 0, 0
         });
         assertArrayEquals(b.getNeighbors(2, 1), new int[]{
-                0, 0, 1, 0
+                0, 0, 0, 0, 1, 0, 0, 0
         });
         assertArrayEquals(b.getNeighbors(4, 5), new int[]{
-                0, -1, -1, 0
+                0, -1, -1, -1, -1, -1, 0, 0
         });
         assertArrayEquals(b.getNeighbors(-1, -1), new int[]{
-                -1, -1, -1, -1
+                -1, -1, -1, 0, -1, -1, -1, -1
         });
         assertArrayEquals(b.getNeighbors(2, 5), new int[]{
-                0, 0, -1, 0
+                0, 0, 0, -1, -1, -1, 0, 0
         });
     }
-
-//    @org.junit.Before
-//    public void setUp() throws Exception {
-//
-//    }
 
     @Test
     public void testGetCell() {
@@ -76,9 +68,4 @@ public class BoardTest {
         assertEquals(board.getHeight(), 6);
         assertEquals(board.getWidth(), 5);
     }
-
-//    @org.junit.After
-//    public void tearDown() throws Exception {
-//
-//    }
 }
