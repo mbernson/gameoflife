@@ -29,14 +29,30 @@ public class Game extends JFrame implements ActionListener {
         timer = new Timer(750, this);
         board = new Board(Patterns.glider);
 
-        setLocationRelativeTo(null);
-        setTitle("Game of life");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setupFrame();
 
         grid = new Grid();
         add(grid);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
+        addControls();
+
+        setVisible(true);
+        Dimension d = grid.getPreferredSize();
+        d.height += 100;
+        d.width += CELL_WIDTH * 2;
+        setSize(d);
+    }
+
+    private void setupFrame() {
+        setLocationRelativeTo(null);
+        setTitle("Game of life");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+    }
+
+    private void addControls() {
         JPanel controls = new JPanel();
         controls.setLayout(new BoxLayout(controls, BoxLayout.LINE_AXIS));
         controls.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
@@ -71,13 +87,6 @@ public class Game extends JFrame implements ActionListener {
         controls.add(generationsLabel);
 
         add(controls);
-
-        setResizable(true);
-        setVisible(true);
-        Dimension d = grid.getPreferredSize();
-        d.height += 100;
-        d.width += CELL_WIDTH * 2;
-        setSize(d);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -88,8 +97,8 @@ public class Game extends JFrame implements ActionListener {
         if(grid != null) {
             board.tick();
             updateGenerationsLabel();
-            repaint();
             grid.repaint();
+            repaint();
         }
     }
 
@@ -109,16 +118,10 @@ public class Game extends JFrame implements ActionListener {
                     repaint();
                 }
 
-                @Override
+                // All these methods have to be implemented.
                 public void mousePressed(MouseEvent e) {}
-
-                @Override
                 public void mouseReleased(MouseEvent e) {}
-
-                @Override
                 public void mouseEntered(MouseEvent e) {}
-
-                @Override
                 public void mouseExited(MouseEvent e) {}
             });
         }
@@ -133,27 +136,27 @@ public class Game extends JFrame implements ActionListener {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+            // Draw the cell squares
             for(int y = 0; y < board.getHeight(); y++) {
                 for(int x = 0; x < board.getWidth(); x++) {
                     int cellX = CELL_WIDTH + (x * CELL_WIDTH),
                         cellY = CELL_HEIGHT + (y * CELL_HEIGHT);
                     int cell = board.getCell(x, y);
-                    if(cell == 1)
-                        g.setColor(Color.black);
-                    else
-                        g.setColor(Color.white);
+
+                    g.setColor(cell == 1 ? Color.black : Color.white);
+
                     g.fillRect(cellX, cellY, CELL_WIDTH, CELL_HEIGHT);
                 }
             }
             g.setColor(Color.gray);
             g.drawRect(CELL_WIDTH, CELL_HEIGHT, CELL_WIDTH * board.getWidth(), CELL_HEIGHT * board.getHeight());
 
-            // Vertical lines
+            // Draw vertical gridlines
             for (int i = CELL_WIDTH; i <= board.getWidth() * CELL_WIDTH; i += CELL_WIDTH) {
                 g.drawLine(i, CELL_HEIGHT, i, board.getHeight() * CELL_HEIGHT + CELL_HEIGHT );
             }
 
-            // Horizontal lines
+            // Draw horizontal gridlines
             for (int i = CELL_HEIGHT; i <= board.getHeight() * CELL_HEIGHT; i += CELL_HEIGHT) {
                 g.drawLine(CELL_WIDTH, i, board.getWidth() * CELL_WIDTH + CELL_WIDTH, i);
             }
