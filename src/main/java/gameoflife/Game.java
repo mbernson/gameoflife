@@ -17,8 +17,10 @@ public class Game extends JFrame implements ActionListener {
         });
     }
 
-    public final int CELL_WIDTH = 20,
-                     CELL_HEIGHT = 20;
+    public final int CELL_WIDTH = 16,
+                     CELL_HEIGHT = 16;
+
+    public final int TICK_INTERVAL = 150;
 
     private Board board;
     private Grid grid;
@@ -26,8 +28,8 @@ public class Game extends JFrame implements ActionListener {
     private Timer timer;
 
     public Game() {
-        timer = new Timer(750, this);
-        board = new Board(Patterns.glider);
+        timer = new Timer(TICK_INTERVAL, this);
+        board = new Board(Patterns.glider_gun);
 
         setupFrame();
 
