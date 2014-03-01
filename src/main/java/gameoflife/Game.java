@@ -60,7 +60,7 @@ public class Game extends JFrame implements ActionListener {
         startStopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (timer.isRunning())
+                if(timer.isRunning())
                     timer.stop();
                 else
                     timer.start();
@@ -77,6 +77,7 @@ public class Game extends JFrame implements ActionListener {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(timer.isRunning()) timer.stop();
                 board.clear();
                 grid.repaint();
                 updateGenerationsLabel();
