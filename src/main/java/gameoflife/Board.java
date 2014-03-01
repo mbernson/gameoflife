@@ -84,16 +84,6 @@ public class Board {
     public int getGeneration() { return generation; }
     public int getWidth() { return width; }
     public int getHeight() { return height; }
-    public int[][] getBoard() { return board; }
-    public int[] getCells() {
-        int[] cells = new int[width * height];
-        for(int row = 0; row < height; row++) {
-            for(int col = 0; col < width; col++) {
-                cells[row + col] = board[row][col];
-            }
-        }
-        return cells;
-    }
 
     public int getCell(int x, int y) {
         if(y >= getHeight() || y < 0)
