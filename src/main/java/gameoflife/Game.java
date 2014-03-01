@@ -22,18 +22,16 @@ public class Game extends JFrame implements ActionListener {
 
     public final int TICK_INTERVAL = 150;
 
-    private Board board;
-    private Grid grid;
+    private Board board = new Board(Patterns.glider_gun);
+    private Grid grid = new Grid();
     private JLabel generationsLabel = new JLabel("Generation: 0");
     private Timer timer;
 
     public Game() {
         timer = new Timer(TICK_INTERVAL, this);
-        board = new Board(Patterns.glider_gun);
 
         setupFrame();
 
-        grid = new Grid();
         add(grid);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
@@ -48,10 +46,9 @@ public class Game extends JFrame implements ActionListener {
 
     private void setupFrame() {
         setLocationRelativeTo(null);
-        setTitle("Game of life");
+        setTitle("Conway's Game of life");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
     }
 
     private void addControls() {
