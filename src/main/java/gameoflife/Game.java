@@ -20,7 +20,7 @@ public class Game extends JFrame implements ActionListener {
     public final int CELL_WIDTH = 16,
                      CELL_HEIGHT = 16;
 
-    public final int TICK_INTERVAL = 150;
+    private int tickInterval = 150;
 
     private Board board = new Board(Patterns.glider_gun);
     private Grid grid = new Grid();
@@ -28,7 +28,7 @@ public class Game extends JFrame implements ActionListener {
     private Timer timer;
 
     public Game() {
-        timer = new Timer(TICK_INTERVAL, this);
+        timer = new Timer(tickInterval, this);
 
         setupFrame();
 
@@ -66,11 +66,13 @@ public class Game extends JFrame implements ActionListener {
                     timer.start();
             }
         });
+
         JButton tickButton = new JButton("Tick");
         tickButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) { tick(); }
         });
+
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new ActionListener() {
             @Override
@@ -80,12 +82,32 @@ public class Game extends JFrame implements ActionListener {
                 updateGenerationsLabel();
             }
         });
+
+        final JTextField intervalField = new JTextField();
+        intervalField.setMaximumSize(new Dimension(80, 24));
+        intervalField.setText(Integer.toString(tickInterval));
+        intervalField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final int newTickInterval = Integer.parseInt(intervalField.getText());
+                if(newTickInterval > 0)
+                    setTickInterval(newTickInterval);
+            }
+        });
+
         controls.add(startStopButton);
+        controls.add(new JLabel("Interval:"));
+        controls.add(intervalField);
         controls.add(tickButton);
         controls.add(clearButton);
         controls.add(generationsLabel);
 
         add(controls);
+    }
+
+    public void setTickInterval(int newInterval) {
+        tickInterval = newInterval;
+        timer.setDelay(tickInterval);
     }
 
     public void actionPerformed(ActionEvent e) {
