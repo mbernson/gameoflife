@@ -1,0 +1,28 @@
+
+plugins {
+  id "edu.sc.seis.macAppBundle" version "2.1.1"
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+group = 'gameoflife'
+version = '1.0-SNAPSHOT'
+
+description = "Conway's game of life"
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+mainClassName = 'gameoflife.Game'
+repositories {
+    mavenCentral()        
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version:'4.11'
+}
+
+macAppBundle {
+    mainClassName = "gameoflife.Game"
+}
